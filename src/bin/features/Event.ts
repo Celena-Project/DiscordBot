@@ -7,6 +7,6 @@ export class Event {
     }
 
     run(args) {
-        throw new TypeError("Event doesnt have functional")
+        throw new TypeError("Event doesnt have functional") //
     }
 }
