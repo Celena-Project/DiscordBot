@@ -1,0 +1,41 @@
+{
+  "name": "celenabot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "run": "ts-node src"
+  },
+  "tsc:w": "tsc -w",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/builders": "^0.12.0",
+    "@discordjs/opus": "^0.5.3",
+    "@discordjs/rest": "^0.3.0",
+    "@influxdata/influxdb-client": "^1.22.0",
+    "@types/glob": "^7.2.0",
+    "axios": "^0.22.0",
+    "chalk": "^4.1.2",
+    "discord-player": "^5.2.2",
+    "discord.js": "^13.6.0",
+    "eslint": "^7.32.0",
+    "ffmpeg-static": "^4.4.1",
+    "glob": "^7.2.0",
+    "gts": "^3.1.0",
+    "moment": "^2.29.1",
+    "msql": "^1.0.3",
+    "mysql2": "^2.3.3",
+    "node-fetch": "^3.2.0",
+    "node-path": "^0.0.3",
+    "path": "^0.12.7",
+    "table": "^6.8.0",
+    "ts-node": "^10.4.0",
+    "websocket": "^1.0.34",
+    "zod": "^3.11.6"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.22",
+    "typescript": "^4.5.5"
+  }
+}
