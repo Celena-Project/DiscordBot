@@ -1,5 +1,4 @@
 require('dotenv').config();
-
 export default {
-    Token: "" ?? process.env.TOKEN
+    token: process.env.TOKEN
 }

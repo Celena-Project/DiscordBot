@@ -2,11 +2,12 @@ import {ApplicationCommand, CommandInteraction, SlashCommandBuilder} from "disco
 
 
 export abstract class DiscordCommand{
-    constructor(name: string, description: string, command: SlashCommandBuilder, isGuildCommand: boolean = true) {
-        this.name = name;
-        this.description = description;
-        this.command = command;
-        this.guildCommand = isGuildCommand;
+    protected constructor(opts: DiscordCommandOptions) {
+        this.name = opts.name;
+        this.description = opts.description ?? "._.";
+        this.command = (opts.command ?? new SlashCommandBuilder()).setName(opts.name).setDescription(this.description);
+        this.guildCommand = opts.isGuildCommand;
+        this.permissions = opts.permissions;
 
     }
 
@@ -14,5 +15,19 @@ export abstract class DiscordCommand{
     public readonly description: string;
     public readonly command: SlashCommandBuilder;
     public readonly guildCommand: boolean;
+    public readonly permissions: DiscordCommandPermissionOptions
     public abstract run(interaction: CommandInteraction): void;
+}
+
+
+interface DiscordCommandOptions{
+    name: string;
+    description?: string;
+    command?: SlashCommandBuilder;
+    permissions?: DiscordCommandPermissionOptions;
+    isGuildCommand?: boolean;
+}
+interface DiscordCommandPermissionOptions{
+    roles: string[];
+    uids: string[];
 }
