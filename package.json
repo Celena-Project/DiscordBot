@@ -1,0 +1,26 @@
+{
+  "dependencies": {
+    "@types/node": "^18.7.2",
+    "chalk": "^5.0.1",
+    "discord.js": "^14.2.0",
+    "moment": "^2.29.4"
+  },
+  "name": "celenadiscordbot",
+  "version": "1.0.0",
+  "description": "bot",
+  "main": "src/index.ts",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Celena-Project/DiscordBot.git"
+  },
+  "author": "klarulor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Celena-Project/DiscordBot/issues"
+  },
+  "homepage": "https://github.com/Celena-Project/DiscordBot#readme"
+}
