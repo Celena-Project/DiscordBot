@@ -1,7 +1,7 @@
 import {BitFieldResolvable, Client, GatewayIntentsString, Guild, IntentsBitField} from "discord.js";
 import config from "../config";
 import {Logger} from "../features/Logger";
-import {BaseCommand} from "./BaseCommand";
+import {BaseCommand} from "./Commands/BaseCommand";
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord.js');
 const intents: BitFieldResolvable<GatewayIntentsString, number> =

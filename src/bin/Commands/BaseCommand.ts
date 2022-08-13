@@ -1,8 +1,10 @@
 import {ApplicationCommand, CommandInteraction, SlashCommandBuilder} from "discord.js";
+import {IDiscordCommandPermissionOptions} from "../../features/interfaces/IDiscordCommandPermissionOptions";
+import {IBaseCommand} from "./IBaseCommand";
 
 
-export abstract class BaseCommand {
-    protected constructor(name: string, opts: DiscordCommandOptions) {
+export abstract class BaseCommand implements IBaseCommand{
+    protected constructor(name: string, opts: IDiscordCommandOptions) {
         this.name = name;
         this.description = opts.description ?? "._.";
         this.command = (opts.command ?? new SlashCommandBuilder()).setName(name).setDescription(this.description);
@@ -15,19 +17,17 @@ export abstract class BaseCommand {
     public readonly description: string;
     public readonly command: SlashCommandBuilder;
     public readonly guildCommand: boolean;
-    public readonly permissions: DiscordCommandPermissionOptions
+    public readonly permissions: IDiscordCommandPermissionOptions
     public abstract run(interaction: CommandInteraction): void;
 }
 
 
-interface DiscordCommandOptions{
-    description?: string;
+interface IDiscordCommandOptions extends IDiscordCommandBasic{
     command?: SlashCommandBuilder;
-    permissions?: DiscordCommandPermissionOptions;
     isGuildCommand?: boolean;
 }
-interface DiscordCommandPermissionOptions{
-    roles?: string[];
-    uids?: string[];
-    onlyKlar?: boolean;
+
+export interface IDiscordCommandBasic{
+    description?: string;
+    permissions?: IDiscordCommandPermissionOptions;
 }

@@ -1,10 +1,10 @@
-import {BaseCommand} from "../../bin/BaseCommand";
+import {BaseCommand} from "../../bin/Commands/BaseCommand";
 import {CommandInteraction, EmbedBuilder} from "discord.js";
 import {client} from "../../index";
-import {DiscordCommandDecorator} from "../../features/decorators/DiscordCommandDecorator";
+//import {DiscordCommandDecorator} from "../../features/decorators/DiscordCommandDecorator";
 
-@DiscordCommandDecorator
-export class HelpCommand extends BaseCommand{
+//@DiscordCommandDecorator
+export default class HelpCommand extends BaseCommand{
     constructor() {
         super("help", {
             description: "Help command can help u"

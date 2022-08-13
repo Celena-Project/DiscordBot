@@ -1,4 +1,4 @@
-import {BaseCommand} from "../../bin/BaseCommand";
+import {BaseCommand} from "../../bin/Commands/BaseCommand";
 import {client} from "../../index";
 import {ClientEvents} from "discord.js";
 import {IEventHandler} from "../../bin/IEventHandler";
