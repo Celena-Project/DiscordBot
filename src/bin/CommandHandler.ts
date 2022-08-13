@@ -12,6 +12,7 @@ export function registerCommands(): void{
     const subCommands: { [key: string]: BaseSubCommand[] } = {};
     const subCommandGroups: { [key: string]: BaseSubCommandGroup[] } = {};
     const subCommandGroupCommands: { [key: string]: { [key: string]: BaseSubCommand[] } } = {};
+    //Parsing
     for(const k in elms.files){
         const link = require(`${path}/${elms.files[k]}`);
         const instance = new link.default() as BaseCommand;
@@ -49,4 +50,9 @@ export function registerCommands(): void{
             }
         }
     }
+    // Implemintation
+
+    const nSubCommands: { [key: string]: BaseSubCommand[] } = {};
+    const nSubCommandGroups: { [key: string]: BaseSubCommandGroup[] } = {};
+    const nSubCommandGroupCommands: { [key: string]: { [key: string]: BaseSubCommand[] } } = {};
 }
