@@ -1,11 +1,11 @@
 import {ApplicationCommand, CommandInteraction, SlashCommandBuilder} from "discord.js";
 
 
-export abstract class DiscordCommand{
-    protected constructor(opts: DiscordCommandOptions) {
-        this.name = opts.name;
+export abstract class BaseCommand {
+    protected constructor(name: string, opts: DiscordCommandOptions) {
+        this.name = name;
         this.description = opts.description ?? "._.";
-        this.command = (opts.command ?? new SlashCommandBuilder()).setName(opts.name).setDescription(this.description);
+        this.command = (opts.command ?? new SlashCommandBuilder()).setName(name).setDescription(this.description);
         this.guildCommand = opts.isGuildCommand;
         this.permissions = opts.permissions;
 
@@ -21,7 +21,6 @@ export abstract class DiscordCommand{
 
 
 interface DiscordCommandOptions{
-    name: string;
     description?: string;
     command?: SlashCommandBuilder;
     permissions?: DiscordCommandPermissionOptions;

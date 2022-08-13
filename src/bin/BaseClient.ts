@@ -1,7 +1,7 @@
 import {BitFieldResolvable, Client, GatewayIntentsString, Guild, IntentsBitField} from "discord.js";
 import config from "../config";
 import {Logger} from "../features/Logger";
-import {DiscordCommand} from "./DiscordCommand";
+import {BaseCommand} from "./BaseCommand";
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord.js');
 const intents: BitFieldResolvable<GatewayIntentsString, number> =
@@ -12,7 +12,7 @@ const clientId = '671449832694480926';
 const guildId = '670351103384354826';
 
 export class BaseClient extends Client{
-    public readonly commands: DiscordCommand[] = [];
+    public readonly commands: BaseCommand[] = [];
     public readonly commandCollection: any = {};
     private _guild: Guild;
     public get guild(){
@@ -33,7 +33,7 @@ export class BaseClient extends Client{
         });
         this.login(config.token);
     }
-    public pushCommand = (command: DiscordCommand): number => this.commands.push(command);
+    public pushCommand = (command: BaseCommand): number => this.commands.push(command);
     private async registerCommands(): Promise<void>{
         const dataCommands = this.commands.map(x => x.command.toJSON());
         const rest = new REST({ version: '10' }).setToken(config.token);
