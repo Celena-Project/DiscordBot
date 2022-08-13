@@ -9,11 +9,11 @@ import {ButtonSeeker} from "../../bin/Interactions/ButtonSeeker";
 export class interactionHandler implements IEventHandler{
     run(interaction: Interaction): void {
         if(interaction.isCommand()){
-            this.onCommand(interaction as CommandInteraction);
+            interactionHandler.onCommand(interaction as CommandInteraction);
         }else if (interaction.isButton())
-            this.onButtonInteraction(interaction as ButtonInteraction);
+            interactionHandler.onButtonInteraction(interaction as ButtonInteraction);
     }
-    private onCommand(interaction: CommandInteraction){
+    private static onCommand(interaction: CommandInteraction){
         if(!client.commandCollection[interaction.commandName])
             interaction.reply({content: "Command is null", ephemeral: true});
         else{
@@ -24,14 +24,14 @@ export class interactionHandler implements IEventHandler{
                     interaction.reply({content: "You dont have permissions", ephemeral: true});
                 else if(interaction.user.id != `664706046027235348`){
                     interaction.reply({content: "YOU ARE NOT A KLARULOR", ephemeral: true});
-                }
+                }else
+                    client.commandCollection[interaction.commandName].run(interaction)
             }else{
-                console.log("invoking")
                 client.commandCollection[interaction.commandName].run(interaction)
             }
         }
     }
-    private onButtonInteraction(interaction: ButtonInteraction): void {
+    private static onButtonInteraction(interaction: ButtonInteraction): void {
         if (ButtonSeeker[interaction.message.id] && ButtonSeeker[interaction.message.id][interaction.customId]?.length > 0)
             for(const k in ButtonSeeker.seekers[interaction.message.id][interaction.customId])
                 ButtonSeeker.seekers[interaction.message.id][interaction.customId][k](interaction);
