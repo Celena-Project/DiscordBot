@@ -7,15 +7,9 @@ export class ButtonSeeker{
     }
     public static onClick(messageId: string, buttonName: string, callback: ((interaction: ButtonInteraction) => any)): void{
         if(!this._seekers[messageId])
-            this._seekers[messageId] = [];
-        this._seekers[messageId].push({
-            messageId, buttonName, callback
-        });
+            this._seekers[messageId] = {};
+        if(!this._seekers[messageId][buttonName])
+            this._seekers[messageId][buttonName] = [];
+        this._seekers[messageId][buttonName].push(callback);
     }
-}
-
-export interface ISeekerOptions{
-    messageId: string;
-    buttonName: string;
-    callback: ((interaction: ButtonInteraction) => any);
 }

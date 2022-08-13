@@ -30,7 +30,11 @@ export class interactionHandler implements IEventHandler{
             }
         }
     }
-    private onButtonInteraction(interaction: ButtonInteraction): void{
-
+    private onButtonInteraction(interaction: ButtonInteraction): void {
+        if (ButtonSeeker[interaction.message.id] && ButtonSeeker[interaction.message.id][interaction.customId]?.length > 0) {
+            for(const k in ButtonSeeker.seekers[interaction.message.id][interaction.customId])
+                ButtonSeeker.seekers[interaction.message.id][interaction.customId][k](interaction);
+        } else
+            interaction.reply({content: "nL", ephemeral: true});
     }
 }
