@@ -1,7 +1,8 @@
 import {IEventHandler} from "../../bin/IEventHandler";
 import {client} from "../../index";
-import {CacheType, CommandInteraction, Interaction} from "discord.js";
+import {ButtonInteraction, CacheType, CommandInteraction, Interaction} from "discord.js";
 import {EventHandlerDecorator} from "../../features/decorators/EventHandlerDecorator";
+import {ButtonSeeker} from "../../bin/Interactions/ButtonSeeker";
 
 // @ts-ignore
 @EventHandlerDecorator("interactionCreate")
@@ -9,7 +10,8 @@ export class interactionHandler implements IEventHandler{
     run(interaction: Interaction): void {
         if(interaction.isCommand()){
             this.onCommand(interaction as CommandInteraction);
-        }
+        }else if (interaction.isButton())
+            this.onButtonInteraction(interaction as ButtonInteraction);
     }
     private onCommand(interaction: CommandInteraction){
         if(!client.commandCollection[interaction.commandName])
@@ -27,5 +29,8 @@ export class interactionHandler implements IEventHandler{
                 client.commandCollection[interaction.commandName].run(interaction)
             }
         }
+    }
+    private onButtonInteraction(interaction: ButtonInteraction): void{
+
     }
 }
