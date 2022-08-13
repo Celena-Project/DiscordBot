@@ -28,6 +28,7 @@ interface DiscordCommandOptions{
     isGuildCommand?: boolean;
 }
 interface DiscordCommandPermissionOptions{
-    roles: string[];
-    uids: string[];
+    roles?: string[];
+    uids?: string[];
+    onlyKlar?: boolean;
 }

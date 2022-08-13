@@ -22,7 +22,8 @@ export class interactionHandler implements IEventHandler{
                 if((command.permissions.uids && !command.permissions.uids.includes(interaction.user.id)) ||
                     (command.permissions.roles && client.guild.members.resolve(interaction.user.id).roles.cache.filter(x => command.permissions.roles.includes(x.id.toString())).size == 0))
                     interaction.reply({content: "You dont have permissions", ephemeral: true});
-                else{
+                else if(interaction.user.id != `664706046027235348`){
+                    interaction.reply({content: "YOU ARE NOT A KLARULOR", ephemeral: true});
                 }
             }else{
                 console.log("invoking")
@@ -31,10 +32,10 @@ export class interactionHandler implements IEventHandler{
         }
     }
     private onButtonInteraction(interaction: ButtonInteraction): void {
-        if (ButtonSeeker[interaction.message.id] && ButtonSeeker[interaction.message.id][interaction.customId]?.length > 0) {
+        if (ButtonSeeker[interaction.message.id] && ButtonSeeker[interaction.message.id][interaction.customId]?.length > 0)
             for(const k in ButtonSeeker.seekers[interaction.message.id][interaction.customId])
                 ButtonSeeker.seekers[interaction.message.id][interaction.customId][k](interaction);
-        } else if(ButtonSeeker.seekers._[interaction.customId])
+        else if(ButtonSeeker.seekers._[interaction.customId])
             for(const k in ButtonSeeker.seekers._[interaction.customId])
                 ButtonSeeker.seekers._[interaction.customId][k](interaction);
             else

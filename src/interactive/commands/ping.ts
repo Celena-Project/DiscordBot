@@ -7,7 +7,10 @@ export class PingCommands extends DiscordCommand{
     constructor() {
         super({
             name: "ping",
-            description: "Test command"
+            description: "Test command",
+            permissions:{
+
+            }
         })
     }
 
