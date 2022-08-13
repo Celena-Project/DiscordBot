@@ -34,7 +34,10 @@ export class interactionHandler implements IEventHandler{
         if (ButtonSeeker[interaction.message.id] && ButtonSeeker[interaction.message.id][interaction.customId]?.length > 0) {
             for(const k in ButtonSeeker.seekers[interaction.message.id][interaction.customId])
                 ButtonSeeker.seekers[interaction.message.id][interaction.customId][k](interaction);
-        } else
+        } else if(ButtonSeeker.seekers._[interaction.customId])
+            for(const k in ButtonSeeker.seekers._[interaction.customId])
+                ButtonSeeker.seekers._[interaction.customId][k](interaction);
+            else
             interaction.reply({content: "nL", ephemeral: true});
     }
 }
