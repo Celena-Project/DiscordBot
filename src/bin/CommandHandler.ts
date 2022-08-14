@@ -83,8 +83,6 @@ export function registerCommands(): void{
                 curSubCommandGroup.command(x);
                 x.setName(curSubCommandGroup.name);
                 x.setDescription(curSubCommandGroup.description);
-                return x;
-
                 for(const p in subCommandGroupCommands[curCommand.name][curSubCommandGroup.name]){
                     const curSubCommandGroupCommand = subCommandGroupCommands[curCommand.name][curSubCommandGroup.name][j];
                     x.addSubcommand(z => {
@@ -97,6 +95,7 @@ export function registerCommands(): void{
                     client.subCommandGroupCommands[curCommand.name][j][p] = curSubCommandGroupCommand;
                     Logger.debug(`Loaded command: ${curCommand.name}:${curSubCommandGroup.name}:${curSubCommandGroupCommand.name}`);
                 }
+                return x;
             });
         }
         client.baseCommands.push(curCommand);
