@@ -3,6 +3,7 @@ import {IDiscordCommandBasic} from "./BaseCommand";
 import {IDiscordCommandPermissionOptions} from "../../features/interfaces/IDiscordCommandPermissionOptions";
 import {SlashCommandSubcommandBuilder} from "@discordjs/builders/dist/interactions/slashCommands/SlashCommandSubcommands";
 import {IBaseCommand} from "./IBaseCommand";
+import {SlashCommandSubcommandsOnlyBuilder} from "@discordjs/builders/dist/interactions/slashCommands/SlashCommandBuilder";
 
 export class BaseSubCommand implements IBaseCommand{
     public readonly name: string;

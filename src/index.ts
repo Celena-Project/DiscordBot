@@ -9,9 +9,9 @@ const folders = [
     'interactive/events'
 ];
 const init = () => {
-    client.run();
     initializeFolders();
     registerCommands();
+    client.run();
 };
 
 
@@ -71,3 +71,4 @@ interface IDirectoryElements{
 
 
 init();
+

@@ -2,6 +2,8 @@ import {BitFieldResolvable, Client, GatewayIntentsString, Guild, IntentsBitField
 import config from "../config";
 import {Logger} from "../features/Logger";
 import {BaseCommand} from "./Commands/BaseCommand";
+import {BaseSubCommand} from "./Commands/BaseSubCommand";
+import {BaseSubCommandGroup} from "./Commands/BaseSubCommandGroup";
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord.js');
 const intents: BitFieldResolvable<GatewayIntentsString, number> =
@@ -12,8 +14,12 @@ const clientId = '671449832694480926';
 const guildId = '670351103384354826';
 
 export class BaseClient extends Client{
-    public readonly commands: BaseCommand[] = [];
-    public readonly commandCollection: any = {};
+    public readonly baseCommands: BaseCommand[] = [];
+
+    public readonly commands: { [key: string]: BaseCommand } = {};
+    public readonly subCommands: { [key: string]: BaseSubCommand[] } = {};
+    public readonly subCommandGroups: { [key: string]: BaseSubCommandGroup[] } = {};
+    public readonly subCommandGroupCommands: { [key: string]: { [key: string]: BaseSubCommand[] } } = {};
     private _guild: Guild;
     public get guild(){
         return this._guild;
@@ -33,9 +39,8 @@ export class BaseClient extends Client{
         });
         this.login(config.token);
     }
-    public pushCommand = (command: BaseCommand): number => this.commands.push(command);
     private async registerCommands(): Promise<void>{
-        const dataCommands = this.commands.map(x => x.command.toJSON());
+        const dataCommands = this.baseCommands.map(x => x.command.toJSON());
         const rest = new REST({ version: '10' }).setToken(config.token);
         await rest.put(
             Routes.applicationGuildCommands(clientId, guildId),
