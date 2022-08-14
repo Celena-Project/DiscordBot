@@ -59,7 +59,8 @@ export function registerCommands(): void{
     for(const k in commands){
         const curCommand = commands[k];
         client.commands[curCommand.name] = curCommand;
-        Logger.debug(`Loaded command: ${curCommand.name}`);
+        if(!subCommands[curCommand.name] && !subCommandGroups[curCommand.name])
+            Logger.debug(`Loaded command: ${curCommand.name}`);
         for(const j in subCommands[curCommand.name]){
             const curSubCommand = subCommands[curCommand.name][j];
             curCommand.command.addSubcommand(x => {
