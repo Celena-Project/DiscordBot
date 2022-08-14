@@ -1,7 +1,7 @@
-import { SlashCommandSubcommandGroupBuilder } from "discord.js";
+import {ChatInputCommandInteraction, SlashCommandSubcommandGroupBuilder} from "discord.js";
 import {IDiscordCommandBasic} from "./BaseCommand";
 import {IDiscordCommandPermissionOptions} from "../../features/interfaces/IDiscordCommandPermissionOptions";
-import {IBaseCommand} from "./IBaseCommand";
+import {DiscordSlashCommand} from "./DiscordSlashCommand";
 
 export class BaseSubCommandGroup{
     public readonly name: string;

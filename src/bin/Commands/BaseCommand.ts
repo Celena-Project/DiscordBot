@@ -1,9 +1,9 @@
 import {ApplicationCommand, ChatInputCommandInteraction, CommandInteraction, SlashCommandBuilder} from "discord.js";
 import {IDiscordCommandPermissionOptions} from "../../features/interfaces/IDiscordCommandPermissionOptions";
-import {IBaseCommand} from "./IBaseCommand";
+import {DiscordSlashCommand} from "./DiscordSlashCommand";
 
 
-export abstract class BaseCommand implements IBaseCommand{
+export abstract class BaseCommand implements DiscordSlashCommand{
     protected constructor(name: string, opts: IDiscordCommandOptions) {
         this.name = name;
         this.description = opts.description ?? "._.";

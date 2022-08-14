@@ -4,6 +4,7 @@ import {ButtonInteraction, CacheType, ChatInputCommandInteraction, CommandIntera
 import {EventHandlerDecorator} from "../../features/decorators/EventHandlerDecorator";
 import {ButtonSeeker} from "../../bin/Interactions/ButtonSeeker";
 import {BaseCommand} from "../../bin/Commands/BaseCommand";
+import {DiscordSlashCommand} from "../../bin/Commands/DiscordSlashCommand";
 
 // @ts-ignore
 @EventHandlerDecorator("interactionCreate")
@@ -14,11 +15,11 @@ export class interactionHandler implements IEventHandler{
         }else if (interaction.isButton())
             interactionHandler.onButtonInteraction(interaction as ButtonInteraction);
         else
-            console.log(interaction)
+            console.log("interaction: ",interaction)
     }
     private static onCommand(interaction: ChatInputCommandInteraction){
         let run = false;
-        console.log(interaction.command)
+        console.log("cmd:",interaction)
         if(!(client.commandsList.filter(x => x.name === interaction.commandName) && (
             (!interaction.options.getSubcommand(false) || client.subCommands[interaction.commandName].filter(x => x.name === interaction.options.getSubcommand(false)))
             || (
@@ -28,11 +29,14 @@ export class interactionHandler implements IEventHandler{
         )))
             interaction.reply({content: "Command is null", ephemeral: true});
         else{
-            let command: BaseCommand = undefined;
+            let command: DiscordSlashCommand = undefined;
             if(client.commandsList.filter(x => x.name === interaction.commandName) && (!interaction.options.getSubcommand(false) && !interaction.options.getSubcommandGroup(false)))
                 command = client.commands[interaction.commandName];
             else{
-                //if()
+                if(!interaction.options.getSubcommandGroup(false))
+                    command = client.subCommands[interaction.commandName].filter(x => x.name === interaction.options.getSubcommand(false))[0];
+                else
+                    command = client.subCommandGroupCommands[interaction.commandName][interaction.options.getSubcommandGroup(false)].filter(x => x.name === interaction.options.getSubcommand(false))[0];
             }
             if(command.permissions){
                 if((command.permissions.uids && !command.permissions.uids.includes(interaction.user.id)) ||
@@ -44,7 +48,10 @@ export class interactionHandler implements IEventHandler{
                     run = true;
             }else
                 run = true;
+            if(run)
+                command.run(interaction);
         }
+
     }
     private static onButtonInteraction(interaction: ButtonInteraction): void {
         if (ButtonSeeker[interaction.message.id] && ButtonSeeker[interaction.message.id][interaction.customId]?.length > 0)

@@ -1,11 +1,11 @@
-import { SlashCommandSubcommandGroupBuilder } from "discord.js";
+import {ChatInputCommandInteraction, SlashCommandSubcommandGroupBuilder} from "discord.js";
 import {IDiscordCommandBasic} from "./BaseCommand";
 import {IDiscordCommandPermissionOptions} from "../../features/interfaces/IDiscordCommandPermissionOptions";
 import {SlashCommandSubcommandBuilder} from "@discordjs/builders/dist/interactions/slashCommands/SlashCommandSubcommands";
-import {IBaseCommand} from "./IBaseCommand";
+import {DiscordSlashCommand} from "./DiscordSlashCommand";
 import {SlashCommandSubcommandsOnlyBuilder} from "@discordjs/builders/dist/interactions/slashCommands/SlashCommandBuilder";
 
-export class BaseSubCommand implements IBaseCommand{
+export abstract class BaseSubCommand implements DiscordSlashCommand{
     public readonly name: string;
     public readonly description: string;
     public readonly command: ((builder: SlashCommandSubcommandBuilder) => any);
@@ -16,6 +16,8 @@ export class BaseSubCommand implements IBaseCommand{
         this.command= opts.command;
         this.permissions = opts.permissions;
     }
+
+    public abstract run(interaction: ChatInputCommandInteraction): void;
 }
 
 interface IBaseSubCommandGroupOptions extends IDiscordCommandBasic{

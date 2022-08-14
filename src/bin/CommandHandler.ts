@@ -2,7 +2,7 @@ import {client, getDirectoryElements, getFiles} from "../index";
 import {BaseCommand} from "./Commands/BaseCommand";
 import {Logger} from "../features/Logger";
 import {BaseSubCommand} from "./Commands/BaseSubCommand";
-import {IBaseCommand} from "./Commands/IBaseCommand";
+import {DiscordSlashCommand} from "./Commands/DiscordSlashCommand";
 import {BaseSubCommandGroup} from "./Commands/BaseSubCommandGroup";
 
 const path = __dirname + "/../interactive/commands";
