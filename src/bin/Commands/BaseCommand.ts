@@ -1,4 +1,4 @@
-import {ApplicationCommand, CommandInteraction, SlashCommandBuilder} from "discord.js";
+import {ApplicationCommand, ChatInputCommandInteraction, CommandInteraction, SlashCommandBuilder} from "discord.js";
 import {IDiscordCommandPermissionOptions} from "../../features/interfaces/IDiscordCommandPermissionOptions";
 import {IBaseCommand} from "./IBaseCommand";
 
@@ -18,7 +18,7 @@ export abstract class BaseCommand implements IBaseCommand{
     public readonly command: SlashCommandBuilder;
     public readonly guildCommand: boolean;
     public readonly permissions: IDiscordCommandPermissionOptions
-    public abstract run(interaction: CommandInteraction): void;
+    public abstract run(interaction: ChatInputCommandInteraction): void;
 }
 
 

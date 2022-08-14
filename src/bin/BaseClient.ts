@@ -14,7 +14,7 @@ const clientId = '671449832694480926';
 const guildId = '670351103384354826';
 
 export class BaseClient extends Client{
-    public readonly baseCommands: BaseCommand[] = [];
+    public readonly commandsList: BaseCommand[] = [];
 
     public readonly commands: { [key: string]: BaseCommand } = {};
     public readonly subCommands: { [key: string]: BaseSubCommand[] } = {};
@@ -40,7 +40,7 @@ export class BaseClient extends Client{
         this.login(config.token);
     }
     private async registerCommands(): Promise<void>{
-        const dataCommands = this.baseCommands.map(x => x.command.toJSON());
+        const dataCommands = this.commandsList.map(x => x.command.toJSON());
         const rest = new REST({ version: '10' }).setToken(config.token);
         await rest.put(
             Routes.applicationGuildCommands(clientId, guildId),

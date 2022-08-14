@@ -1,23 +1,39 @@
 import {IEventHandler} from "../../bin/IEventHandler";
 import {client} from "../../index";
-import {ButtonInteraction, CacheType, CommandInteraction, Interaction} from "discord.js";
+import {ButtonInteraction, CacheType, ChatInputCommandInteraction, CommandInteraction, Interaction} from "discord.js";
 import {EventHandlerDecorator} from "../../features/decorators/EventHandlerDecorator";
 import {ButtonSeeker} from "../../bin/Interactions/ButtonSeeker";
+import {BaseCommand} from "../../bin/Commands/BaseCommand";
 
 // @ts-ignore
 @EventHandlerDecorator("interactionCreate")
 export class interactionHandler implements IEventHandler{
     run(interaction: Interaction): void {
         if(interaction.isCommand()){
-            interactionHandler.onCommand(interaction as CommandInteraction);
+            interactionHandler.onCommand(interaction as ChatInputCommandInteraction);
         }else if (interaction.isButton())
             interactionHandler.onButtonInteraction(interaction as ButtonInteraction);
+        else
+            console.log(interaction)
     }
-    private static onCommand(interaction: CommandInteraction){
-        if(!client.commandCollection[interaction.commandName])
+    private static onCommand(interaction: ChatInputCommandInteraction){
+        let run = false;
+        console.log(interaction.command)
+        if(!(client.commandsList.filter(x => x.name === interaction.commandName) && (
+            (!interaction.options.getSubcommand(false) || client.subCommands[interaction.commandName].filter(x => x.name === interaction.options.getSubcommand(false)))
+            || (
+                (!interaction.options.getSubcommandGroup(false) || client.subCommandGroups[interaction.commandName].filter(x => x.name === interaction.options.getSubcommandGroup(false)))
+                    && (!interaction.options.getSubcommand(false) || client.subCommandGroupCommands[interaction.commandName][interaction.options.getSubcommandGroup(false)].filter(x => x.name === interaction.options.getSubcommand(false)))
+            )
+        )))
             interaction.reply({content: "Command is null", ephemeral: true});
         else{
-            const command = client.commandCollection[interaction.commandName];
+            let command: BaseCommand = undefined;
+            if(client.commandsList.filter(x => x.name === interaction.commandName) && (!interaction.options.getSubcommand(false) && !interaction.options.getSubcommandGroup(false)))
+                command = client.commands[interaction.commandName];
+            else{
+                //if()
+            }
             if(command.permissions){
                 if((command.permissions.uids && !command.permissions.uids.includes(interaction.user.id)) ||
                     (command.permissions.roles && client.guild.members.resolve(interaction.user.id).roles.cache.filter(x => command.permissions.roles.includes(x.id.toString())).size == 0))
@@ -25,10 +41,9 @@ export class interactionHandler implements IEventHandler{
                 else if(interaction.user.id != `664706046027235348`){
                     interaction.reply({content: "YOU ARE NOT A KLARULOR", ephemeral: true});
                 }else
-                    client.commandCollection[interaction.commandName].run(interaction)
-            }else{
-                client.commandCollection[interaction.commandName].run(interaction)
-            }
+                    run = true;
+            }else
+                run = true;
         }
     }
     private static onButtonInteraction(interaction: ButtonInteraction): void {

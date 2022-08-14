@@ -99,6 +99,6 @@ export function registerCommands(): void{
                 return x;
             });
         }
-        client.baseCommands.push(curCommand);
+        client.commandsList.push(curCommand);
     }
 }

@@ -18,14 +18,14 @@ const init = () => {
 
 function initializeFolders(): void{
     folders.forEach(x => {
-        // const path = __dirname + `/${x}`;
-        // const files = fs.readdirSync(path);
-        // //console.log(files);
-        // Logger.debug(`Initialized folder: ${x}`);
-        // for(const k in files){
-        //     require(`${path}/${files[k]}`);
-        // }
-        const files = getFiles(`${__dirname}/${x}`);
+        const path = __dirname + `/${x}`;
+        const files = fs.readdirSync(path);
+        //console.log(files);
+        Logger.debug(`Initialized folder: ${x}`);
+        for(const k in files){
+            require(`${path}/${files[k]}`);
+        }
+        //const files = getFiles(`${__dirname}/${x}`);
     })
 }
 
