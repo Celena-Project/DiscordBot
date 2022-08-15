@@ -19,7 +19,6 @@ export class interactionHandler implements IEventHandler{
     }
     private static onCommand(interaction: ChatInputCommandInteraction){
         let run = false;
-        console.log("cmd:",interaction)
         if(!(client.commandsList.filter(x => x.name === interaction.commandName) && (
             (!interaction.options.getSubcommand(false) || client.subCommands[interaction.commandName].filter(x => x.name === interaction.options.getSubcommand(false)))
             || (
